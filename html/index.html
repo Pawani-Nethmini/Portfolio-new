@@ -22,7 +22,7 @@
       <div class="hero-text reveal">
         <h1>Hi, I'm<br /><span class="accent">Pawani</span><br />Hettiarachchi</h1>
         <p>As a computer science undergraduate with a growing interest in technology and creative problem solving,
-                I am a passionate learner who loves creating meaningful digital experiences and developing solutions that make an impact.</p>
+           I am a passionate learner who loves creating meaningful digital experiences and developing solutions that make an impact.</p>
         <div class="hero-btns">
           <a href="#projects" class="btn-primary">View My Work</a>
           <a href="#contact" class="btn-ghost">Get In Touch</a>
@@ -172,7 +172,9 @@
         </div>
       </div>
       <div class="contact-form reveal d2">
-        <form action="#" method="post" aria-label="Contact form">
+        <form id="contactForm" data-sheet-url="https://script.google.com/u/0/home/projects/1mECjuTAQWVbBwRVSkh5rDhoPURNAuSljsP52da4Q8_VYpczX9BBvEovl/edit" aria-label="Contact form">
+          <input type="hidden" id="submittedAt" name="submittedAt" />
+          <input type="hidden" name="source" value="portfolio-contact-form" />
           <div class="form-row">
             <div class="form-group"><label for="fullname">Full Name *</label><input id="fullname" name="fullname" type="text" placeholder="Your full name" required autocomplete="name" /></div>
             <div class="form-group"><label for="email">Email *</label><input id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" /></div>
@@ -195,6 +197,7 @@
           <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Say something nice..."></textarea></div>
           <div class="checkbox-row"><input id="consent" name="consent" type="checkbox" required /><label for="consent">I agree to receive occasional emails and understand I can unsubscribe at any time. *</label></div>
           <button type="submit" class="submit-btn">Send Message</button>
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
         </form>
       </div>
     </div>
