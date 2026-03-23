@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pawani Hettiarachchi — Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mint:   #6366f1;
+      --mint2:  #4f46e5;
+      --dark:   #f8f7ff;
+      --dark2:  #eef0ff;
+      --glass:  rgba(99,102,241,0.07);
+      --glass2: rgba(99,102,241,0.14);
+      --white:  #1e1b4b;
+      --muted:  #6b7280;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .15;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #f0f0ff; }
+    ::-webkit-scrollbar-thumb { background: var(--mint2); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      padding: 20px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(248,247,255,.97) 0%, rgba(248,247,255,0) 100%);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800; font-size: 1.05rem;
+      color: var(--mint);
+      letter-spacing: .03em;
+    }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: .92rem; letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color .3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--mint);
+      transition: width .35s ease;
+    }
+    .nav-links a:hover { color: var(--mint); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ─── HERO ─── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 60px 80px;
+      position: relative;
+    }
+
+    /* animated radial glow */
+    #home::after {
+      content: '';
+      position: absolute; top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,.14) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes pulse {
+      from { transform: translate(-50%, -50%) scale(1); opacity: .8; }
+      to   { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      max-width: 1200px; width: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .hero-text { }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass2);
+      border: 1px solid rgba(99,102,241,.2);
+      border-radius: 100px;
+      padding: 6px 16px; margin-bottom: 28px;
+      font-size: .78rem; color: var(--mint);
+      letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hero-tag .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--mint);
+      animation: blink 1.4s ease infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: .2; }
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: .01em;
+      margin-bottom: 24px;
+    }
+    .hero-text h1 .accent { color: var(--mint); }
+
+    .hero-text p {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.85;
+      font-weight: 500;
+      max-width: 480px; margin-bottom: 40px;
+    }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--mint); color: #fff;
+      padding: 13px 30px; border-radius: 100px;
+      text-decoration: none; font-weight: 700; font-size: .92rem;
+      letter-spacing: .03em;
+      transition: all .3s ease;
+      box-shadow: 0 0 20px rgba(99,102,241,.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 35px rgba(99,102,241,.55);
+    }
+    .btn-ghost {
+      border: 1px solid rgba(99,102,241,.35); color: var(--mint);
+      padding: 13px 30px; border-radius: 100px;
+      text-decoration: none; font-weight: 600; font-size: .92rem;
+      letter-spacing: .02em;
+      transition: all .3s ease;
+    }
+    .btn-ghost:hover {
+      background: var(--glass2); transform: translateY(-3px);
+    }
+
+    /* hero image side */
+    .hero-visual {
+      display: flex; flex-direction: column; align-items: center; gap: 28px;
+    }
+
+    .profile-frame {
+      position: relative; width: 260px; height: 260px;
+    }
+    .profile-frame::before {
+      content: '';
+      position: absolute; inset: -3px;
+      background: conic-gradient(var(--mint), var(--mint2), #a5b4fc, var(--mint));
+      border-radius: 50%;
+      animation: spin 6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .profile-frame .inner {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      border-radius: 50%; overflow: hidden;
+      background: #e8e9ff;
+    }
+    .profile-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* social pills */
+    .socials {
+      display: flex; gap: 14px; align-items: center;
+    }
+    .socials a {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--glass2);
+      border: 1px solid rgba(99,102,241,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem;
+      text-decoration: none;
+      transition: all .3s;
+    }
+    .socials a:hover {
+      background: var(--mint); color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 0 18px rgba(99,102,241,.5);
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 100px 60px; position: relative; }
+    .section-label {
+      font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mint); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700; margin-bottom: 16px;
+      letter-spacing: .01em;
+    }
+    .section-divider {
+      width: 50px; height: 2px;
+      background: linear-gradient(90deg, var(--mint), transparent);
+      margin-bottom: 48px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: linear-gradient(135deg, #eef0ff 0%, #f3f4ff 100%);
+    }
+
+    .about-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted); font-size: 1.02rem; line-height: 1.95;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+    .about-text strong { color: var(--white); }
+
+    /* stats strip */
+    .stats-strip {
+      display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap;
+    }
+    .stat {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--mint);
+      line-height: 1;
+    }
+    .stat-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* skills grid */
+    .skills-wrap { }
+    .skills-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 24px;
+      color: var(--white);
+    }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .skill-chip {
+      background: rgba(99,102,241,0.05);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 14px;
+      padding: 18px 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      transition: all .35s ease;
+      cursor: default;
+    }
+    .skill-chip:hover {
+      background: var(--glass2);
+      border-color: rgba(99,102,241,.45);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(99,102,241,.15);
+    }
+    .skill-chip i { font-size: 1.6rem; color: var(--mint); }
+    .skill-chip span { font-size: .75rem; text-align: center; color: var(--muted); }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--dark); }
+
+    .projects-inner { max-width: 1200px; margin: 0 auto; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .project-card {
+      background: rgba(99,102,241,0.05);
+      border: 1px solid rgba(99,102,241,.1);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: all .4s ease;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(99,102,241,.4);
+      box-shadow: 0 20px 50px rgba(99,102,241,.12);
+    }
+
+    .project-img-wrap {
+      width: 100%; height: 180px; overflow: hidden; position: relative;
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.08); }
+
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30,27,75,0.65) 0%, transparent 60%);
+    }
+
+    .project-body { padding: 22px; flex: 1; }
+    .project-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 10px;
+      color: var(--white);
+    }
+    .project-body p {
+      font-size: .875rem; color: var(--muted); line-height: 1.7;
+    }
+
+    .project-footer {
+      padding: 14px 22px;
+      border-top: 1px solid rgba(99,102,241,0.2);
+      display: flex; justify-content: flex-end; align-items: center;
+    }
+    .project-arrow {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--glass2); border: 1px solid rgba(99,102,241,.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mint); font-size: .9rem;
+      transition: all .3s;
+    }
+    .project-card:hover .project-arrow {
+      background: var(--mint); color: #fff;
+    }
+
+    /* featured project (larger) */
+    .project-card.featured {
+      grid-column: span 2;
+    }
+    .project-card.featured .project-img-wrap { height: 240px; }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: linear-gradient(135deg, #eef0ff 0%, #f8f7ff 100%);
+    }
+
+    .contact-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;
+    }
+
+    .contact-info h2.section-title { margin-bottom: 12px; }
+    .contact-info p {
+      color: var(--muted); line-height: 1.85; margin-bottom: 36px;
+      font-weight: 500;
+    }
+
+    .contact-email-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--mint); text-decoration: none;
+      font-weight: 700; font-size: 1rem;
+      border-bottom: 1px solid rgba(99,102,241,.3);
+      padding-bottom: 4px; margin-bottom: 40px;
+      transition: border-color .3s;
+    }
+    .contact-email-link:hover { border-color: var(--mint); }
+
+    .contact-social { display: flex; gap: 14px; }
+    .contact-social a {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--glass2);
+      border: 1px solid rgba(99,102,241,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1.1rem;
+      text-decoration: none; transition: all .3s;
+    }
+    .contact-social a:hover {
+      background: var(--mint); color: #fff;
+      transform: translateY(-3px);
+    }
+
+    /* form */
+    .contact-form {
+      background: rgba(99,102,241,0.05);
+      border: 1px solid rgba(99,102,241,.12);
+      border-radius: 24px; padding: 40px;
+    }
+
+    .form-row { display: flex; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; flex: 1; margin-bottom: 20px; }
+    .form-group label {
+      font-size: .8rem; color: var(--mint);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(99,102,241,0.06);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #1e1b4b; font-family: 'Manrope', sans-serif;
+      font-size: .95rem; outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(99,102,241,0.4); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--mint);
+      box-shadow: 0 0 16px rgba(99,102,241,.15);
+    }
+    .form-group select option { background: #f0f0ff; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .checkbox-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      accent-color: var(--mint); margin-top: 2px;
+    }
+    .checkbox-row label {
+      font-size: .875rem; color: var(--muted); line-height: 1.5;
+    }
+
+    .submit-btn {
+      width: 100%; padding: 14px;
+      background: var(--mint); color: #fff;
+      border: none; border-radius: 100px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(99,102,241,.3);
+      transition: all .3s;
+    }
+    .submit-btn:hover {
+      background: var(--mint2); transform: translateY(-3px);
+      box-shadow: 0 0 35px rgba(99,102,241,.5);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(99,102,241,0.2);
+      padding: 30px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p { font-size: .85rem; color: var(--muted); }
+    footer .footer-mark {
+      font-family: 'Manrope', sans-serif; font-weight: 800;
+      color: var(--mint); font-size: .92rem;
+      letter-spacing: .04em;
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: none;
+    }
+
+    /* staggered delays */
+    .reveal.d1 { transition-delay: .1s; }
+    .reveal.d2 { transition-delay: .2s; }
+    .reveal.d3 { transition-delay: .3s; }
+    .reveal.d4 { transition-delay: .4s; }
+    .reveal.d5 { transition-delay: .5s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 30px; }
+      section { padding: 80px 30px; }
+      footer { padding: 24px 30px; }
+
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-visual { order: -1; }
+      .hero-text p { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      #home { padding: 120px 30px 80px; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .skills-grid { grid-template-columns: repeat(4, 1fr); }
+
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .project-card.featured { grid-column: span 1; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───── NAV ───── -->
+  <nav>
+    <div class="nav-logo">Pawani Hettiarachchi.</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ───── HERO ───── -->
+  <section id="home">
+    <div class="hero-inner">
+
+      <div class="hero-text reveal">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          Available for opportunities
+        </div>
+        <h1>
+          Hi, I'm<br>
+          <span class="accent">Pawani</span><br>
+          Hettiarachchi
+        </h1>
+        <p>
+          A Computer Science undergraduate at the University of Westminster —
+          passionate about technology, design, and building meaningful digital
+          experiences that make a real impact.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-ghost">Get In Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal d2">
+        <div class="profile-frame">
+          <div class="inner">
+            <img src="images/profile.jpg" alt="Pawani Hettiarachchi" />
+          </div>
+        </div>
+        <div class="socials">
+          <a href="https://linkedin.com/in/pawani-hettiarachchi" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/Pawani-Nethmini" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://instagram.com/nethmini.hettiarachchi" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───── ABOUT ───── -->
+  <section id="about">
+    <div class="about-inner">
+
+      <div>
+        <p class="section-label reveal">Who I Am</p>
+        <h2 class="section-title reveal d1">About Me</h2>
+        <div class="section-divider reveal d2"></div>
+        <div class="about-text reveal d3">
+          <p>
+            Hi, I'm <strong>Pawani Hettiarachchi</strong> — an undergraduate student at the
+            <strong>University of Westminster</strong>, pursuing a degree in Computer Science.
+            I'm passionate about technology, design, and problem solving.
+          </p>
+          <p>
+            Through my academic journey and personal projects, I've developed a strong
+            interest in creating innovative, user-friendly, and impactful digital solutions.
+            My goal is to continuously improve my technical expertise and contribute to
+            projects that bridge technology with sustainability.
+          </p>
+        </div>
+        <div class="stats-strip reveal d4">
+          <div class="stat">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Languages</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">Curiosity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-wrap">
+        <p class="section-label reveal">What I Know</p>
+        <p class="skills-title reveal d1">My Skills</p>
+        <div class="skills-grid">
+          <div class="skill-chip reveal d1">
+            <i class="fab fa-python"></i>
+            <span>Python</span>
+          </div>
+          <div class="skill-chip reveal d2">
+            <i class="fab fa-java"></i>
+            <span>Java</span>
+          </div>
+          <div class="skill-chip reveal d3">
+            <i class="fab fa-react"></i>
+            <span>React</span>
+          </div>
+          <div class="skill-chip reveal d4">
+            <i class="fa-solid fa-database"></i>
+            <span>Databases</span>
+          </div>
+          <div class="skill-chip reveal d1">
+            <i class="fa-solid fa-users"></i>
+            <span>Team Work</span>
+          </div>
+          <div class="skill-chip reveal d2">
+            <i class="fa-solid fa-brain"></i>
+            <span>Problem Solving</span>
+          </div>
+          <div class="skill-chip reveal d3">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span>Mobile Dev</span>
+          </div>
+          <div class="skill-chip reveal d4">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Web Dev</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───── PROJECTS ───── -->
+  <section id="projects">
+    <div class="projects-inner">
+      <p class="section-label reveal">My Work</p>
+      <h2 class="section-title reveal d1">Projects</h2>
+      <div class="section-divider reveal d2"></div>
+
+      <div class="projects-grid">
+
+        <a href="https://github.com/Pawani-Nethmini/Traffic-Data-Analysis-System"
+           class="project-card featured reveal d1" target="_blank" rel="noopener">
+          <div class="project-img-wrap">
+            <img src="images/project1.jpg" alt="Traffic Data Analysis System" />
+            <div class="project-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Traffic Data Analysis System</h3>
+            <p>A Python project that performs data validation, processing, and
+               analysis on traffic survey data sets — featuring statistical insights
+               and visual reporting.</p>
+          </div>
+          <div class="project-footer">
+            <span class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </div>
+        </a>
+
+        <a href="https://github.com/Pawani-Nethmini/airport-data-analyzer"
+           class="project-card reveal d2" target="_blank" rel="noopener">
+          <div class="project-img-wrap">
+            <img src="images/project2.jpg" alt="Airport Data Analysis System" />
+            <div class="project-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Airport Data Analysis System</h3>
+            <p>A Python tool to analyze and visualize air traffic departure data
+               from European airports.</p>
+          </div>
+          <div class="project-footer">
+            <span class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </div>
+        </a>
+
+        <a href="https://github.com/Pawani-Nethmini/Starbuks-website-design"
+           class="project-card reveal d3" target="_blank" rel="noopener">
+          <div class="project-img-wrap">
+            <img src="images/project3.jpg" alt="Starbucks Website Design" />
+            <div class="project-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Starbucks Website Design</h3>
+            <p>A responsive and interactive Starbucks landing page built with HTML, CSS,
+               and JavaScript.</p>
+          </div>
+          <div class="project-footer">
+            <span class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </div>
+        </a>
+
+        <a href="https://github.com/yasiramnd/web"
+           class="project-card reveal d4" target="_blank" rel="noopener">
+          <div class="project-img-wrap">
+            <img src="images/project4.jpg" alt="Life Below Water" />
+            <div class="project-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Life Below Water</h3>
+            <p>A collaborative website promoting SDG 14 awareness, built with HTML
+               and CSS as a team project.</p>
+          </div>
+          <div class="project-footer">
+            <span class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </div>
+        </a>
+
+        <a href="#" class="project-card reveal d5">
+          <div class="project-img-wrap">
+            <img src="images/project5.jpg" alt="Portfolio Website" />
+            <div class="project-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Portfolio Website</h3>
+            <p>A personal portfolio designed with HTML and CSS to showcase my
+               skills and projects.</p>
+          </div>
+          <div class="project-footer">
+            <span class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── CONTACT ───── -->
+  <section id="contact">
+    <div class="contact-inner">
+
+      <div class="contact-info">
+        <p class="section-label reveal">Let's Connect</p>
+        <h2 class="section-title reveal d1">Get In Touch</h2>
+        <div class="section-divider reveal d2"></div>
+        <p class="reveal d3">
+          Whether you'd like to collaborate, have a question, or just want to say hello —
+          my inbox is always open.
+        </p>
+        <a href="/cdn-cgi/l/email-protection#70001107111e195e4240424440414647301919045e11135e1c1b" class="contact-email-link reveal d4">
+          <i class="fa-regular fa-envelope"></i>
+          <span class="__cf_email__" data-cfemail="03736274626d6a2d3133313733323534436a6a772d62602d6f68">[email&#160;protected]</span>
+        </a>
+        <div class="contact-social reveal d5">
+          <a href="https://linkedin.com/in/pawani-hettiarachchi" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/Pawani-Nethmini" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://instagram.com/nethmini.hettiarachchi" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form reveal d2">
+        <form action="#" method="post" aria-label="Contact and newsletter form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullname">Full Name *</label>
+              <input id="fullname" name="fullname" type="text"
+                     placeholder="Your full name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email"
+                     placeholder="you@example.com" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel"
+                     placeholder="+94 7xx xxx xxx" autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label for="birthday">Birthday</label>
+              <input id="birthday" name="birthday" type="date"
+                     max="2025-12-31" autocomplete="bday" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="interest">I'm interested in</label>
+            <select id="interest" name="interest" required>
+              <option value="">— Choose an option —</option>
+              <option value="projects">Project updates</option>
+              <option value="volunteering">Volunteering</option>
+              <option value="research">Research &amp; publications</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Say something nice…"></textarea>
+          </div>
+
+          <div class="checkbox-row">
+            <input id="consent" name="consent" type="checkbox" required />
+            <label for="consent">
+              I agree to receive occasional emails and understand I can unsubscribe at any time. *
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───── FOOTER ───── -->
+  <footer>
+    <p>&copy; 2025 Pawani Hettiarachchi. All rights reserved.</p>
+  </footer>
+
+  <!-- ───── SCROLL REVEAL SCRIPT ───── -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    reveals.forEach((element) => {
+      io.observe(element);
+    });
+
+    document.querySelectorAll('#home .reveal').forEach((element) => {
+      element.classList.add('visible');
+      io.unobserve(element);
+    });
+  </script>
+</body>
+</html>
